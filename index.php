@@ -14,32 +14,32 @@
         <div class="container mt-5">
             <table class="table table-striped">
                 <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>NAME</th>
-                    <th>URL</th>
-                    <th>DEADLINE</th>
-                </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>URL</th>
+                        <th>DEADLINE</th>
+                    </tr>
                 </thead>
                 <tbody>
+                    <?php
+                    include "connection.php";
+                    $sql = "select * from tasks";
+                    $result = $conn->query($sql);
+                    if (!$result) {
+                        die("Invalid query!");
+                    }
+                    while ($row=$result->fetch_assoc()) {
+                        echo "
                     <tr>
-                        <td>1</td>
-                        <td>HTML</td>
-                        <td>http://localhost/php_crud/</td>
-                        <td>2024-05-25</td>
+                        <td>$row[id]</td>
+                        <td>$row[name]</td>
+                        <td>$row[url]</td>
+                        <td>$row[deadline]</td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>HTML</td>
-                        <td>http://localhost/php_crud/</td>
-                        <td>2024-05-25</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>HTML</td>
-                        <td>http://localhost/php_crud/</td>
-                        <td>2024-05-25</td>
-                    </tr>
+                    ";
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
