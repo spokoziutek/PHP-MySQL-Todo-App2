@@ -5,29 +5,40 @@ $id = $name = $url = $deadline = $error = $success = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (!isset($_GET['id'])) {
-        header("location: /");
+        header("location:/php_crud/");
         exit;
     }
     $id = $_GET['id'];
-    $sql = "select * from tasks where id=$id";
-    $result = $conn->query($sql);
-    $row = $result->fetch_assoc();
-    while (!$row) {
-        header("location: /");
+    $stmt = $conn->prepare("SELECT * FROM tasks WHERE id=?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $name = $row["name"];
+        $url = $row["url"];
+        $deadline = $row["deadline"];
+    } else {
+        header("location:/php_crud/");
         exit;
     }
-    $name = $row["name"];
-    $url = $row["url"];
-    $deadline = $row["deadline"];
-} else {
+
+    $stmt->close();
+} elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
     $name = $_POST["name"];
     $url = $_POST["url"];
     $deadline = $_POST["deadline"];
-    $sql = "update tasks set name='$name', url='$url', deadline='$deadline' where id='$id'";
-    $result = $conn->query($sql);
+
+    $stmt = $conn->prepare("UPDATE tasks SET name=?, url=?, deadline=? WHERE id=?");
+    $stmt->bind_param("sssi", $name, $url, $deadline, $id);
+    $stmt->execute();
+    $stmt->close();
+    header("location:/php_crud/");
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

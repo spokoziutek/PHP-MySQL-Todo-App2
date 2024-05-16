@@ -1,13 +1,16 @@
 <?php
 include "connection.php";
 if (isset($_POST['submit'])) {
+    $stmt = $conn->prepare("INSERT INTO tasks (name, url, deadline) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $name, $url, $deadline);
     $name = $_POST['name'];
     $url = $_POST['url'];
     $deadline = $_POST['deadline'];
-    $q = "INSERT INTO `tasks`(`name`,`url`,`deadline`) VALUES ('$name','$url','$deadline')";
-    $query = mysqli_query($conn, $q);
+    $stmt->execute();
+    $stmt->close();
+    $conn->close();
+    header("location: /php_crud/");
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
