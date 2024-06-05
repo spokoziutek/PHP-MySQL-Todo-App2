@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
     $stmt->execute();
     $stmt->close();
     $conn->close();
-    header("location: /php");
+    header("location: /index.php");
 }
 ?>
 <!DOCTYPE html>
