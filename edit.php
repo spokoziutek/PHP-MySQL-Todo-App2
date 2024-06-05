@@ -5,7 +5,7 @@ $id = $name = $url = $deadline = $error = $success = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (!isset($_GET['id'])) {
-        header("location:/php_crud/");
+        header("location:/index.php");
         exit;
     }
     $id = $_GET['id'];
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $url = $row["url"];
         $deadline = $row["deadline"];
     } else {
-        header("location:/php_crud/");
+        header("location:/index.php");
         exit;
     }
 
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $stmt->bind_param("sssi", $name, $url, $deadline, $id);
     $stmt->execute();
     $stmt->close();
-    header("location:/php_crud/");
+    header("location:/index.php");
 }
 ?>
 
