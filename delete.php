@@ -8,6 +8,6 @@ if (isset($_GET['id'])) {
     $stmt->close();
     $conn->close();
 }
-header('location:/php_crud/');
+header('location:/index.php');
 exit;
 ?>
