@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
     $stmt->execute();
     $stmt->close();
     $conn->close();
-    header("location: /php_crud/");
+    header("location: /php");
 }
 ?>
 <!DOCTYPE html>
